@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>closer</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    />
+    <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+    <section>
+        <div class="section-header">
+            <h2>Home</h2>
+        </div>
+        
+        <div class="section-body">
+            <div class="btn_wrapper">
+                <a href="./registration.html"><button type="button" class="btn btn-info text-white">新規登録</button></a>
+                <a href="./sign_in.html"><button type="button" class="btn btn-danger text-white">ログイン</button></a>
+            </div>
+        </div>
+        <div style="max-width: 600px; margin: 0 auto;">
+        <p class="text-center mt-3">ログイン前のユーザーリスト</p>
+        <p class="text-center text-small">※パスワードは"worksjapan" + "エイリアス番号"です</p>
+            <table id="users_list" class="table table-bordered table-hover mb-5" ></table>
+        </div>
+
+    </section>
+
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript">
+        'uses strict';
+        
+        // fetch("http://127.0.0.1:3001/api/v1/users") //fetchは関数として実行する必要なし。fetchの戻り値は、promiseオブジェクト
+        // .then(res => res.json()) //resの戻り値はResponseオブジェクト。res.json()の戻り値はpromise
+        
+        // .then(json => {          
+        //     console.log(json)
+        //     let content = '<thead><tr><th>ユーザーID</th><th>名前</th><th>メールアドレス</th></tr></thead>'
+        //     json.forEach(element => {
+        //         content += `<tbody><tr><td>${element.id}</td><td>${element.name}</td><td>${element.email}</td></tr></tbody>`;
+        //     });
+        //     document.getElementById('users_list').innerHTML = content
+        // })
+
+    </script>
+</body>
+</html>

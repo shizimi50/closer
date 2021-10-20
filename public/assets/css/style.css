@@ -1,0 +1,66 @@
+body {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
+.section-header {
+  text-align: center;
+  margin: 70px 0px auto;
+}
+
+.fa-lock {
+  color: white;
+  background-color: #f50057;
+  border-radius: 50px;
+}
+
+.section-header h2 {
+  font-size: 25px;
+  padding: 5px;
+  line-height: 1.334;
+}
+
+.section-body {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.section-body button {
+  text-align: center;
+}
+
+.section-body-course {
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.form-asset {
+  padding: 10px;
+}
+
+.btn_wrapper {
+  text-align: center;
+}
+
+.btn_wrapper input {
+  margin-top: 30px;
+  padding: 10 0;
+  border: 0;
+  width: 380px;
+  color: #555;
+  background-color: rgba(0, 0, 0, 0.12);
+  color: rgba(0, 0, 0, 0.26);
+}
+
+.account {
+  text-align: center;
+  padding-top: 10px;
+}
+.account span {
+  color: #3f51b5;
+  font-size: 0.875rem;
+  letter-spacing: 0.01071em;
+}
+
+ul li {
+  list-style: none;
+}

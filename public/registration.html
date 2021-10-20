@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My_application_api</title>
+    <!-- Bootstrap CSS -->
+    <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+    crossorigin="anonymous"
+    />
+    <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+
+    <section class="">
+        <div class="section-header">
+          <div class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
+          </div>
+          <h2>新規登録</h2>
+          <!-- <h2>アカウント新規登録</h2>／ -->
+        </div>
+  
+        <form id="signup_form">
+            <!-- <input type="hidden" name="confirm_success_url" value="http://127.0.0.1:3001/api/v1/index.html"> -->
+
+            <div class="section-body g-3">
+            <div class="form-asset">
+              <label for="email" class="form-label">メールアドレス <small class="text-danger">※</small></label>
+              <input type="email" name="email" class="form-control" value="" placeholder="you@example.com" required="">
+              <div class="invalid-feedback">
+                有効なメールアドレスを入力してください。
+              </div>
+            </div>
+            <!-- <div class="form-asset" id="form_name">
+              <label for="lastName" class="form-label">名前<small class="text-danger">※</small></label>
+              <input type="text" name="name" class="form-control" value="" required="">
+              <div class="invalid-feedback">
+                名前を入力してください。
+              </div>
+            </div> -->
+            <div class="form-asset">
+              <label for="password" class="form-label">パスワード <small class="text-danger">※</small></label>
+              <input type="password" name="password" class="form-control" value="" required="">
+              <div class="invalid-feedback">
+                パスワードを入力してください。
+              </div>
+            </div>
+          </div>
+          
+          <div class="btn_wrapper">
+            <input type="button" class="btn" value="送信" onclick="signupApi()">
+          </div>
+        </form>
+        
+        <div class="account">
+            <a href="index.html"><span>トップへ戻る</span></a>
+        </div>
+  
+          
+      </section>
+
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>	
+    <script type="text/javascript">
+      'use strict';
+
+      function signupApi() {
+        const formData = new FormData(document.getElementById("signup_form"));
+        fetch("http://127.0.0.1:3000/api/v1/auth/registrations",{
+             mode: 'cors',
+            method: 'POST',
+            credentials: 'same-origin',
+            body: formData,
+        }).then((res) => {
+        if(!res.ok){
+          throw new Error(`${res.status} ${res.statusText}`)
+        }
+          console.log(res)
+        }).catch((error)=>{
+          console.log(error)
+        });
+      };  
+
+    </script>
+    </body>
+</html>
