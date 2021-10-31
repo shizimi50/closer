@@ -5,7 +5,7 @@ class ChoreTool < ApplicationRecord
 
     # ＝＝＝＝関連付け＝＝＝＝＝
     belongs_to :chore
-    belongs_to :chore_way
+    # belongs_to :chore_way
     # ＝＝＝＝＝＝＝＝＝＝＝＝＝
 
     # ＝＝フレームワーク関連＝＝
