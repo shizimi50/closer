@@ -8,6 +8,7 @@ module Api
                 chores = Chore.all
                 render json: { status: 'Success', data: chores }
             end
+            
 
             def show
                 render json: { status: 'Success', data: { chore_way: @chore.chore_ways, chore_tools: @chore.chore_tools } }
