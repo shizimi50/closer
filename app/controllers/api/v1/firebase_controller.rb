@@ -8,11 +8,9 @@ module Api
                   user = yield(decoded_token)
                   log_in(user)
                   render json: { message: 'ログインしました。' }
-                  # flash[:success] = 'ログインしました。'
                   # redirect_back_or(users_path)
                 else
                   render json: { message: 'ログインできませんでした。' }
-                  # flash[:danger] = 'ログインできませんでした。'
                   # redirect_to login_url
                 end
             end

@@ -1,10 +1,6 @@
 class Api::V1::ApplicationController < ActionController::API
-    # 下記２行により、ApplicationControllerを継承したコントローラのメソッドにアクセス時、
-    # HTTPリクエストヘッダに、「Authorization: “Bearer *****************(トークン)”」を入れるだけで、勝手にJWT認証してくれる
-    # include Firebase::Auth::Authenticable    
-    # protect_from_forgery with: :exception
 
-    include ActionController::HttpAuthentication::Token::ControllerMethods
+    include ActionController::HttpAuthentication::Token::ControllerMethods #HTTP Token 認証を非常に簡単に実行できるモジュール
     include SessionsHelper    
   
     private                                                        
