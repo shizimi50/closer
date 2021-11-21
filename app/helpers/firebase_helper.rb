@@ -30,7 +30,6 @@ module FirebaseHelper
 
         certificate = OpenSSL::X509::Certificate.new(public_key)
         decoded_token = decode_jwt(token, certificate.public_key, true, { algorithm: ALGORITHM, verify_iat: true })
-
         {
           'uid' => decoded_token[:payload]['sub'],
           'decoded_token' => decoded_token

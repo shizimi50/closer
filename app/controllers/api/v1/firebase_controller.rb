@@ -7,11 +7,9 @@ module Api
                 if decoded_token = authenticate_firebase_id_token
                   user = yield(decoded_token)
                   log_in(user)
-                  render json: { message: 'ログインしました。' }
-                  # redirect_back_or(users_path)
+                  render json: { message: 'ログインしました。', data: {user: user, decoded_token: decoded_token} }
                 else
                   render json: { message: 'ログインできませんでした。' }
-                  # redirect_to login_url
                 end
             end
             
