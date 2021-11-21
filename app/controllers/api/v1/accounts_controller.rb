@@ -7,7 +7,8 @@ module Api
                 super do |decoded_token|
                 User.create(
                     email: decoded_token['decoded_token'][:payload]['email'],
-                    uid:   decoded_token['uid']
+                    uid:   decoded_token['uid'],
+                    name:  decoded_token['decoded_token'][:payload]['name']
                 )
                 end
             end
