@@ -1,6 +1,7 @@
 module Api
     module V1
         class AssignmentChoreDaysController < ApplicationController
+            before_action :logged_in_user
             before_action :assignment_chore_days_params, only:[:create, :update, :destroy]
             before_action :set_assignment_chore_days, only:[:show, :update, :destroy]
 
