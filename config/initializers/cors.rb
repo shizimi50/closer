@@ -7,12 +7,12 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
     allow do
-        origins 'https://ik1-341-30511.vs.sakura.ne.jp/','http://127.0.0.1:8080/'
+        origins '*'
 
         resource '*',
         headers: :any,
-        methods: [:get, :post, :put, :patch, :delete, :options, :head],
-        credentials: true  
+        methods: [:get, :post, :put, :patch, :delete, :options, :head]
+        # credentials: true  
     end
 
     #本番環境用のオリジン設定
