@@ -7,6 +7,7 @@ class Chore < ApplicationRecord
     belongs_to :user #userとの関連付け
     has_many :chore_ways, dependent: :destroy #chore_waysとの関連づけ
     has_many :chore_tools, dependent: :destroy #chore_toolsとの関連づけ
+    # belongs_to :survey
     # ＝＝＝＝＝＝＝＝＝＝＝＝＝
 
     # ＝＝フレームワーク関連＝＝
