@@ -15,7 +15,7 @@ Rails.application.routes.draw do
         resources :chore_ways
         resources :chore_tools
       end
-      get 'chore_ways/recommend_tasks' => 'chore_ways#recommend_task'
+      post 'chores/recommend_chores' => 'chores#recommend_chores'
 
       resources :assignment_chore_days, only: [:index, :create]
       get 'assignment_chore_days' => 'assignment_chore_days#assignment_chore_days'
