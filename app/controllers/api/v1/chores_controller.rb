@@ -19,7 +19,7 @@ module Api
                 render json: { status: 'Success', data: { chore_way: @chore.chore_ways, chore_tools: @chore.chore_tools } }
             end
 
-            def create
+            def recommend_chores
                 selected_list = JSON.parse(request.body.read) #フロントから受け取ったパラメータをjson化
                  today = Date.today #今日の日付
                  array_list = Array.new(55){|i|today + i} #今日から48日分の日付を取得
@@ -57,7 +57,16 @@ module Api
                 else
                     render json: { status: 'Error',  message: chore.errors.full_messages }
                 end
+            end
 
+            def create
+              today = Date.today
+              chores = Chore.new(chore_name: params[:chore_name], user_id: @current_user.id, start_time: today)
+              if chores.save
+                  render json: { status: 'Success',  data: chores }
+              else
+                  render json: { status: 'Error',  message: chores.errors.full_messages }
+              end
             end
 
 
