@@ -29,6 +29,7 @@ gem 'hirb'        #追記 # 出力結果を表として出力するgem
 gem 'hirb-unicode' #追記 # マルチバイト文字の表示を補正するgem
 # 論理削除
 gem 'paranoia' #追記
+gem 'activerecord-import' #追記
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
