@@ -10,7 +10,7 @@ module Api
             before_action :set_chore, only:[:show, :update, :destroy]
 
             def index
-                chores = Chore.all
+                chores = Chore.where(user_id: @current_user.id)
                 render json: { status: 'Success', data: chores }
             end
             
