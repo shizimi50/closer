@@ -42,11 +42,10 @@ ActiveRecord::Schema.define(version: 2021_10_10_063352) do
   create_table "chores", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "chore_name", null: false
     t.date "start_time"
-    t.bigint "user_id"
+    t.integer "user_id"
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_chores_on_user_id"
   end
 
   create_table "surveys", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -58,10 +57,9 @@ ActiveRecord::Schema.define(version: 2021_10_10_063352) do
     t.string "children"
     t.string "youngest_child_age"
     t.string "kindergarten"
-    t.bigint "user_id"
+    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_surveys_on_user_id"
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -72,8 +70,4 @@ ActiveRecord::Schema.define(version: 2021_10_10_063352) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "chore_tools", "chores"
-  add_foreign_key "chore_ways", "chores"
-  add_foreign_key "chores", "users"
-  add_foreign_key "surveys", "users"
 end
