@@ -12,10 +12,16 @@ Rails.application.routes.draw do
       resources :surveys, only: [:index, :create]
 
       resources :chores do
+        collection do
+          get :my_todos 
+          get :recommend_todos 
+          post :recommend_results 
+          get :today 
+          get :week 
+        end
         resources :chore_ways
         resources :chore_tools
       end
-      post 'chores/recommend_chores' => 'chores#recommend_chores'
 
       resources :assignment_chore_days, only: [:index, :create]
       get 'assignment_chore_days' => 'assignment_chore_days#assignment_chore_days'
