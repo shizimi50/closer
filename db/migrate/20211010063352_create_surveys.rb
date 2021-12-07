@@ -9,8 +9,8 @@ class CreateSurveys < ActiveRecord::Migration[6.1]
       t.string :children
       t.string :youngest_child_age
       t.string :kindergarten
-      t.references :user, foreign_key: true
-
+      t.integer  :user_id
+      
       t.timestamps
     end
   end

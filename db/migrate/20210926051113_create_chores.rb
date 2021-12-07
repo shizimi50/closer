@@ -3,7 +3,7 @@ class CreateChores < ActiveRecord::Migration[6.1]
     create_table :chores do |t|
       t.string :chore_name, :null => false 
       t.date :start_time
-      t.references :user, foreign_key: true
+      t.integer  :user_id
       t.datetime :deleted_at
 
 
