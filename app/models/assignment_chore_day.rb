@@ -6,7 +6,7 @@ class AssignmentChoreDay < ApplicationRecord
 
         # ＝＝＝＝関連付け＝＝＝＝＝ 
         #https://qiita.com/aiorange19/items/2120d91912bc643273da
-        belongs_to :survey
+        belongs_to :survey, optional: true #nullの許容
         # ＝＝＝＝＝＝＝＝＝＝＝＝＝
     
 end
