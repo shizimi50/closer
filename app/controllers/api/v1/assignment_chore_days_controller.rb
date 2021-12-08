@@ -6,6 +6,12 @@ module Api
             before_action :set_assignment_chore_days, only:[:show, :update, :destroy]
 
             def index
+                result = AssignmentChoreDay.where(user_id: @current_user.id)
+                render json: { status: 'Success', data: result } 
+            end
+            
+
+            def create
                 survey = Survey.find_by(user_id: @current_user.id)
                 # survey = Survey.find_by(user_id: 1)
                 wh = survey.working_hours.to_i #就業時間
@@ -21,37 +27,26 @@ module Api
                 end
 
                 if wh <= 45 && pj == '1' #wh = 0~45 且つ pj = 1
-                    result = AssignmentChoreDay.find(1)
+                    result = AssignmentChoreDay.create(working_hours: '1~1.5hr', chore_days: '平日', user_id: current_user.id)
                     render json: { status: 'Success', data: result } 
                 elsif (wh >= 46 && wh <= 59) && pj == '1' #wh = 46~59 且つ pj = 1
-                    result = AssignmentChoreDay.find(2)
-                    render json: { status: 'Success', data: result }
+                    result = AssignmentChoreDay.create(working_hours: '30mins~1hr', chore_days: '平日', user_id: current_user.id)
                 elsif wh >= 60 && pj == '1' #wh = 60~ 且つ pj = 1
-                    result = AssignmentChoreDay.find(3)
+                    result = AssignmentChoreDay.create(working_hours: '15mins~30mins', chore_days: '平日', user_id: current_user.id)
                     render json: { status: 'Success', data: result }
                 elsif wh <= 45 && (pj == '2' || pj == '3')
-                    result = AssignmentChoreDay.find(4)
+                    result = AssignmentChoreDay.create(working_hours: '1~1.5hr', chore_days: '休日', user_id: current_user.id)
                     render json: { status: 'Success', data: result }
                 elsif (wh >= 46 && wh <= 59) && (pj == '2' || pj == '3')
-                    result = AssignmentChoreDay.find(5)
+                    result = AssignmentChoreDay.create(working_hours: '30mins~1hr', chore_days: '休日', user_id: current_user.id)
                     render json: { status: 'Success', data: result }
                 elsif wh >= 60 && (pj == '2' || pj == '3')
-                    result = AssignmentChoreDay.find(6)
+                    result = AssignmentChoreDay.create(working_hours: '15mins~30mins', chore_days: '休日', user_id: current_user.id)
                     render json: { status: 'Success', data: result }
                 else
-                    render json: { status: 'Error', message: "データが正しく取得できませんでした" }
+                    render json: { status: 'Error', message: "おすすめ家事日時を登録できませんでした" }
                 end
-            end
-            
 
-
-            def create
-                assignment_chore_days = AssignmentChoreDay.new(assignment_chore_days_params)
-                if assignment_chore_days.save
-                    render json: { status: 'Success',  data: assignment_chore_days }
-                else
-                    render json: { status: 'Error',  message: assignment_chore_days.errors.full_messages }
-                end
             end
 
             private
