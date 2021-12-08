@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 2021_10_10_063352) do
   create_table "assignment_chore_days", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "working_hours", null: false
     t.string "chore_days", null: false
+    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

@@ -8,7 +8,12 @@ Rails.application.routes.draw do
       post   '/accounts' => 'accounts#create'
       delete '/accounts' => 'accounts#destroy'
 
-      resources :users
+      resources :users do
+        collection do
+          get :about
+        end
+      end
+
       resources :surveys, only: [:index, :create]
 
       resources :chores do
@@ -23,8 +28,11 @@ Rails.application.routes.draw do
         resources :chore_tools
       end
 
-      resources :assignment_chore_days, only: [:index, :create]
-      get 'assignment_chore_days' => 'assignment_chore_days#assignment_chore_days'
+      resources :assignment_chore_days, only: [:index, :create] do 
+        collection do
+          get :assignment_chore_days
+        end
+      end
 
     end
   end
