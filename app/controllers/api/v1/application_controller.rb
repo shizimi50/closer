@@ -2,7 +2,8 @@ class Api::V1::ApplicationController < ActionController::API
 
     include ActionController::HttpAuthentication::Token::ControllerMethods #HTTP Token 認証を非常に簡単に実行できるモジュール
     include SessionsHelper    
-  
+    include ActionController::Cookies # 追記!
+
     private                                                        
       # tokenが正規のものであれば、デコード結果を返す
       # そうでなければfalseを返す
