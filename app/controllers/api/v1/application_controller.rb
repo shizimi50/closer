@@ -16,8 +16,9 @@ class Api::V1::ApplicationController < ActionController::API
             # 受け取った認証情報を検証しデコード
             decoded_token = FirebaseHelper::Auth.verify_id_token(token)
           rescue => e
-            logger.error(e.message)
-            false
+            render json: { data: e}
+            # logger.error(e.message)
+            # false
           end
         end
       end
