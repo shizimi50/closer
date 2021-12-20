@@ -5,7 +5,7 @@ module Api
             require 'date'
             require 'active_record'
             require 'activerecord-import'
-            before_action :logged_in_user
+            # before_action :logged_in_user
             before_action :chore_params, only:[:create, :update, :destroy]
             before_action :set_chore, only:[:show, :update, :destroy]
             
