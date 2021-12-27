@@ -31,7 +31,7 @@ gem 'hirb-unicode' #追記 # マルチバイト文字の表示を補正するgem
 gem 'paranoia' #追記
 gem 'activerecord-import' #追記
 gem 'active_model_serializers' #追記
-gem 'rails_same_site_cookie' #追加
+gem "rails_same_site_cookie", "~> 0.1.8" #追加
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
