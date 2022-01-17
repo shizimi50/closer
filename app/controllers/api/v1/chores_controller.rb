@@ -92,12 +92,15 @@ module Api
 
             def create
               today = Date.today
-              chores = Chore.new(chore_name: params[:chore_name], user_id: @current_user.id, start_time: today)
-              if chores.save
-                  render json: { status: 'Success',  data: chores }
-              else
-                  render json: { status: 'Error',  message: chores.errors.full_messages }
-              end
+              chores = Chore.new(chore_name: chore_params[:chore_name], start_time: chore_params[:start_time], user_id: @current_user.id)
+                if chores.start_time.nil?
+                    chores.update(start_time: today)
+                    render json: { status: 'Success',  data: chores }
+                elsif chores.save                    
+                    render json: { status: 'Success',  data: chores }
+                else
+                    render json: { status: 'Error',  message: chores.errors.full_messages }
+                end
             end
 
 
@@ -120,7 +123,7 @@ module Api
             private
             
             def chore_params
-                params.permit(:chore_name, :user_id, :start_time)
+                params.permit(:chore_name, :start_time)
             end
 
             def set_chore
