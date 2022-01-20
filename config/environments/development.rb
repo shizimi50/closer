@@ -16,6 +16,8 @@ Rails.application.configure do
 
 
   # Enable/disable caching. By default caching is disabled.
+  config.public_file_server.enabled = true
+  
   # Run rails dev:cache to toggle caching.
   if Rails.root.join('tmp', 'caching-dev.txt').exist?
     config.cache_store = :memory_store
@@ -50,6 +52,10 @@ Rails.application.configure do
 
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
+
+  # development環境では全てのログレベルを保存する
+  # ※デフォルトがdebug=レベル0になっているため、実際にはlog_level = :debugを設定する必要はない
+  config.log_level = :debug
 
 
   # Raises error for missing translations.
