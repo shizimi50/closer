@@ -33,7 +33,8 @@ Rails.application.routes.draw do
           get :recommend_todos 
           post :recommend_results 
           get :today 
-          get :week 
+          get :week
+          put :remove_todo
         end
         resources :chore_ways
         resources :chore_tools
