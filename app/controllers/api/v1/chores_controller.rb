@@ -7,7 +7,7 @@ module Api
             require 'activerecord-import'
             before_action :logged_in_user
             before_action :chore_params, only:[:create, :update, :destroy]
-            before_action :set_chore, only:[:show, :update, :destroy]
+            before_action :set_chore, only:[:show, :update, :destroy, :remove_todo]
             
             # 全ての登録家事取得
             def index
@@ -59,6 +59,11 @@ module Api
             render json: { status: 'Success', data: chores }
             end
 
+            def remove_todo
+                @chore.start_time = nil
+                @chore.save
+                render json: { status: 'Success', data: @chore }
+            end
 
             def show
                 render json: { status: 'Success', data: { chore_way: @chore.chore_ways, chore_tools: @chore.chore_tools } }
