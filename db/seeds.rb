@@ -11,12 +11,12 @@ require "date"
 #  ----------------------------------------------------------------------------------------------------------------------------
 #  おすすめ家事日時
 #  ----------------------------------------------------------------------------------------------------------------------------
-AssignmentChoreDay.create(working_hours: '1~1.5hr', chore_days: '平日', user_id: 0)
-AssignmentChoreDay.create(working_hours: '30mins~1hr', chore_days: '平日', user_id: 0)
-AssignmentChoreDay.create(working_hours: '15mins~30mins', chore_days: '平日', user_id: 0 )
-AssignmentChoreDay.create(working_hours: '1~1.5hr', chore_days: '休日', user_id: 0)
-AssignmentChoreDay.create(working_hours: '30mins~1hr', chore_days: '休日', user_id: 0)
-AssignmentChoreDay.create(working_hours: '15mins~30mins', chore_days: '休日', user_id: 0)
+# AssignmentChoreDay.create(working_hours: '1~1.5hr', chore_days: '平日', user_id: 0)
+# AssignmentChoreDay.create(working_hours: '30mins~1hr', chore_days: '平日', user_id: 0)
+# AssignmentChoreDay.create(working_hours: '15mins~30mins', chore_days: '平日', user_id: 0 )
+# AssignmentChoreDay.create(working_hours: '1~1.5hr', chore_days: '休日', user_id: 0)
+# AssignmentChoreDay.create(working_hours: '30mins~1hr', chore_days: '休日', user_id: 0)
+# AssignmentChoreDay.create(working_hours: '15mins~30mins', chore_days: '休日', user_id: 0)
 
 #  ----------------------------------------------------------------------------------------------------------------------------
 #  家事データ作成
