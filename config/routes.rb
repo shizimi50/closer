@@ -26,11 +26,12 @@ Rails.application.routes.draw do
       end
 
       resources :surveys, only: [:index, :create]
+      put   '/surveys' => 'surveys#update'
 
       resources :chores do
         collection do
           get :my_todos 
-          get :recommend_todos 
+          get :recommend_todos
           post :recommend_results 
           get :today 
           get :week
