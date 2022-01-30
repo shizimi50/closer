@@ -26,7 +26,7 @@ Rails.application.routes.draw do
       end
 
       resources :surveys, only: [:index, :create]
-      put   '/surveys' => 'surveys#update'
+      put 'surveys' => 'surveys#update'
 
       resources :chores do
         collection do

@@ -2,6 +2,7 @@ module Api
     module V1
         class SurveysController < ApplicationController
             before_action :logged_in_user
+            before_action :survey_params, only:[:create, :update, :destroy]
 
             def index
                 survey = Survey.all
@@ -9,17 +10,8 @@ module Api
             end					
 
             def create
-                survey = Survey.new(
-                    sex: params[:sex],
-                    birth: params[:birth],
-                    working_hours: params[:working_hours],
-                    holiday: params[:holiday],
-                    partner_jobsituation: params[:partner_jobsituation],
-                    children: params[:children],
-                    youngest_child_age: params[:youngest_child_age],
-                    kindergarten: params[:kindergarten],
-                    user_id: @current_user.id
-                )
+                survey = current_user.surveys.build(survey_params)
+
                 if survey.save
                     render json: { status: 'Success',  data: survey }
                 else
@@ -27,16 +19,29 @@ module Api
                 end
             end
 
-            private
-            
-            # def survey_params
-            #     params.permit(:sex, :birth, :working_hours, :holiday, :partner_jobsituation, :children, :youngest_child_age, :kindergarten, :user_id)
-            # end
+            def update
+                survey = Survey.where(user_id: current_user.id).last
+                if survey.update(survey_params)
+                    date = survey.assignment_date
 
-            def set_survey
-                @survey = Survey.find(params[:id])
+                    if ["月","火","水","木","金"].any?{|i| date.include?(i)} && ["土","日"].any?{|i| date.include?(i)} #全日の条件
+                        survey.update(week_category: 1) #全日
+                    elsif ["月","火","水","木","金"].any?{|i| date.include?(i)} && ["土"].any?{|i| date.exclude?(i)} && ["日"].any?{|i| date.exclude?(i)} #平日のみが含まれる条件
+                        survey.update(week_category: 2) #平日
+                    else
+                        survey.update(week_category: 3) #休日
+                    end
+                    render json: survey
+                else
+                    render json: survey.errors
+                end
             end
 
+            private
+            
+            def survey_params
+                params.permit(:sex, :birth, :working_hours, :holiday, :partner_jobsituation, :children, :youngest_child_age, :kindergarten, :assignment_date, :week_category, :user_id)
+            end
 
         end
     end
