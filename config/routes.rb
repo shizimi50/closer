@@ -31,7 +31,7 @@ Rails.application.routes.draw do
       resources :chores do
         collection do
           get :my_todos 
-          get :recommend_todos 
+          get :recommend_todos
           post :recommend_results 
           get :today 
           get :week

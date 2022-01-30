@@ -1,4 +1,4 @@
-class Chore < ApplicationRecord
+class WeekDay < ApplicationRecord
     # =====Validation======
     validates :chore_name, presence: true #空の値に対してバリデーション設定
     # ＝＝＝＝＝＝＝＝＝＝＝＝＝
@@ -14,5 +14,5 @@ class Chore < ApplicationRecord
     # ＝＝フレームワーク関連＝＝
     acts_as_paranoid #論理削除適用
     # ＝＝＝＝＝＝＝＝＝＝＝＝＝
-
+    
 end
