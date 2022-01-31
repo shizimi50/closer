@@ -1,4 +1,4 @@
-Rails.application.routes.draw do
+Rails.application.routes.draw do  
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   namespace :api do
     namespace :v1 do
@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       end
 
       resources :surveys, only: [:index, :create]
+      put 'surveys' => 'surveys#update'
 
       resources :chores do
         collection do
@@ -22,7 +23,7 @@ Rails.application.routes.draw do
           get :recommend_todos 
           post :recommend_results 
           get :today 
-          get :week 
+          get :week
         end
         resources :chore_ways
         resources :chore_tools

@@ -12,35 +12,25 @@ module Api
             
 
             def create
-                survey = Survey.find_by(user_id: @current_user.id)
-                # survey = Survey.find_by(user_id: 1)
+                survey = Survey.where(user_id: @current_user.id).last
                 wh = survey.working_hours.to_i #就業時間
                 pj = survey.partner_jobsituation #パートナー就業状況
-                if pj.include?("勤務")
-                    pj = '1'
-                elsif pj.include?("パート")
-                    pj = '2'
-                elsif pj.include?("専業")
-                    pj = '3'
-                else
-                    pj = ''
-                end
 
-                if wh <= 45 && pj == '1' #wh = 0~45 且つ pj = 1
+                if wh <= 45 && pj.include?("勤務") #0~45×フルタイム勤務or時短勤務 ＝ 1~1.5hr×平日
                     result = AssignmentChoreDay.create(working_hours: '1~1.5hr', chore_days: '平日', user_id: current_user.id)
                     render json: { status: 'Success', data: result } 
-                elsif (wh >= 46 && wh <= 59) && pj == '1' #wh = 46~59 且つ pj = 1
-                    result = AssignmentChoreDay.create(working_hours: '30mins~1hr', chore_days: '平日', user_id: current_user.id)
-                elsif wh >= 60 && pj == '1' #wh = 60~ 且つ pj = 1
-                    result = AssignmentChoreDay.create(working_hours: '15mins~30mins', chore_days: '平日', user_id: current_user.id)
-                    render json: { status: 'Success', data: result }
-                elsif wh <= 45 && (pj == '2' || pj == '3')
+                elsif wh <= 45 && (pj.include?("パート") || pj.include?("専業"))  #0~45×パート(週4以下)OR専業主婦(夫) ＝ 1~1.5hr×休日
                     result = AssignmentChoreDay.create(working_hours: '1~1.5hr', chore_days: '休日', user_id: current_user.id)
                     render json: { status: 'Success', data: result }
-                elsif (wh >= 46 && wh <= 59) && (pj == '2' || pj == '3')
+                elsif (wh >= 46 && wh <= 59) && pj.include?("勤務")#46~59×フルタイム勤務or時短勤務 ＝ 30mins~1hr×平日
+                    result = AssignmentChoreDay.create(working_hours: '30mins~1hr', chore_days: '平日', user_id: current_user.id)
+                elsif (wh >= 46 && wh <= 59) && (pj.include?("パート") || pj.include?("専業")) #46~59×パート(週4以下)OR専業主婦(夫) ＝ 30mins~1hr×休日
                     result = AssignmentChoreDay.create(working_hours: '30mins~1hr', chore_days: '休日', user_id: current_user.id)
                     render json: { status: 'Success', data: result }
-                elsif wh >= 60 && (pj == '2' || pj == '3')
+                elsif wh >= 60 && pj.include?("勤務") #60~×フルタイム勤務or時短勤務 = 15mins~30mins×平日
+                    result = AssignmentChoreDay.create(working_hours: '15mins~30mins', chore_days: '平日', user_id: current_user.id)
+                    render json: { status: 'Success', data: result }
+                elsif wh >= 60 && (pj.include?("パート") || pj.include?("専業")) #60~×パート(週4以下)OR専業主婦(夫) = 15mins~30mins×休日
                     result = AssignmentChoreDay.create(working_hours: '15mins~30mins', chore_days: '休日', user_id: current_user.id)
                     render json: { status: 'Success', data: result }
                 else
