@@ -7,7 +7,7 @@ module Api
             require 'activerecord-import'
             before_action :logged_in_user
             before_action :chore_params, only:[:create, :update, :destroy]
-            before_action :set_chore, only:[:show, :update, :destroy, :remove_todo]
+            before_action :set_chore, only:[:show, :update, :destroy]
             
             # 全ての登録家事取得
             def index
@@ -17,7 +17,7 @@ module Api
 
             # 登録todo(家事)一覧
             def my_todos
-                chores = Chore.where(user_id: @current_user.id)
+                chores = Chore.where(user_id: @current_user.id).with_deleted
                 render json: { status: 'Success', data: chores }
             end
 
@@ -113,19 +113,6 @@ module Api
 
             end
 
-
-            def remove_today
-                @chore.start_time = nil
-                @chore.save
-                render json: { status: 'Success', data: @chore }
-            end
-
-            def remove_week
-                @chore.assignment_date = nil
-                @chore.save
-                render json: { status: 'Success', data: @chore }
-            end
-
             def show
                 render json: { status: 'Success', data: { chore_way: @chore.chore_ways, chore_tools: @chore.chore_tools } }
             end
@@ -145,7 +132,7 @@ module Api
                 end
 
                 k = 0
-                chore_list.each{|chore|
+                chore_list = chore_list.map{|chore|
                     k += 1
                     Chore.create(chore_name: chore, assignment_date: wday_list[k-1], user_id: 1)
                 }
@@ -186,11 +173,11 @@ module Api
             private
             
             def chore_params
-                params.permit(:chore_name, :start_time)
+                params.permit(:chore_name, :start_time, :user_id)
             end
 
             def set_chore
-                @chore = Chore.find_by(params[:id])
+                @chore = Chore.find(params[:id])
             end
 
         end
