@@ -1,4 +1,5 @@
 class Chore < ApplicationRecord
+    
     # =====Validation======
     validates :chore_name, presence: true #空の値に対してバリデーション設定
     # ＝＝＝＝＝＝＝＝＝＝＝＝＝
@@ -7,8 +8,6 @@ class Chore < ApplicationRecord
     belongs_to :user, dependent: :destroy, optional: true #nullの許容
     has_many :chore_ways, dependent: :destroy #chore_waysとの関連づけ
     has_many :chore_tools, dependent: :destroy #chore_toolsとの関連づけ
-    has_many :week_day, through: :weekday_chores
-    # belongs_to :survey
     # ＝＝＝＝＝＝＝＝＝＝＝＝＝
 
     # ＝＝フレームワーク関連＝＝

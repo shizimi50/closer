@@ -22,45 +22,106 @@ module Api
             end
 
             # おすすめ家事一覧
-            def recommend_todos                
-                survey = Survey.find_by(user_id: @current_user.id)
-                children = survey.children
+            def recommend_todos              
+                survey = Survey.where(user_id: @current_user.id).last
+                children = survey.children # 子供の有無
                 youngest = survey.youngest_child_age.delete("^0-9").to_i
-                kd = survey.kindergarten
+                kd = survey.kindergarten # 通園の有無
+                date = survey.week_category # 担当したい家事曜日の区分
 
-                if children.exclude?("いない") && youngest <= 6 && kd.include?("有")
-                    chores = Chore.where(user_id: 0).as_json(only: :chore_name)
-                    render json: { status: 'Success', data: chores}
-                elsif children.exclude?("いない") && youngest <= 8 && kd.include?("有")
-                    chores = Chore.find(1,2,3,4,5,6).as_json(only: :chore_name)
-                    render json: { status: 'Success', data: chores}
-                elsif children.include?("いない") 
-                    chores = Chore.find(1,2,3,4,5).as_json(only: :chore_name)
-                    render json: { status: 'Success', data: chores}
+                chores_1 = Chore.find(1,2,3,4,5).as_json(only: :chore_name)
+                chores_2 = Chore.find(1,2,3,4,5,9).as_json(only: :chore_name)
+                chores_3 = Chore.find(1,2,3,4,5,6).as_json(only: :chore_name)
+                chores_4 = Chore.find(1,2,3,4,5,6,7,8).as_json(only: :chore_name)
+                chores_5 = Chore.find(1,2,3,4,5,6,7,8,9).as_json(only: :chore_name)
+
+                if  date == 1 #全日
+                    if children.include?("いない") # 子供いない場合
+                        render json: { status: 'Success', data: chores_1}
+                    elsif (youngest >= 7) #7歳以上の場合
+                        if kd.include?("有")
+                            render json: { status: 'Success', data: chores_4}
+                        else
+                            render json: { status: 'Success', data: chores_3}
+                        end
+                    else #6歳以下の場合
+                        if kd.include?("有")
+                            render json: { status: 'Success', data: chores_5}
+                        else
+                            render json: { status: 'Success', data: chores_4}
+                        end
+                    end
+                elsif  date == 2 #平日
+                    if children.include?("いない") # 子供いない場合
+                        render json: { status: 'Success', data: chores_1}
+                    elsif (youngest >= 7) #7歳以上の場合
+                        if kd.include?("有")
+                            render json: { status: 'Success', data: chores_4}
+                        else
+                            render json: { status: 'Success', data: chores_3}
+                        end
+                    else #6歳以下の場合
+                        if kd.include?("有")
+                            render json: { status: 'Success', data: chores_2}
+                        else
+                            render json: { status: 'Success', data: chores_1}
+                        end
+                    end
+                elsif date == 3 #休日
+                    if children.include?("いない") # 子供いない場合
+                        render json: { status: 'Success', data: chores_1}
+                    elsif (youngest >= 7) #7歳以上の場合
+                        if kd.include?("有")
+                            render json: { status: 'Success', data: chores_4}
+                        else
+                            render json: { status: 'Success', data: chores_3}
+                        end
+                    else #6歳以下の場合
+                        if kd.include?("有")
+                            render json: { status: 'Success', data: chores_5}
+                        else
+                            render json: { status: 'Success', data: chores_4}
+                        end
+                    end
                 else
-                    render json: { status: 'Error',  message: chores.errors.full_messages }
+                    render json: { status: 'Error', data: chores.errors.full_messages}
                 end
             end
 
+
             def today
+              days = ["日", "月", "火", "水", "木", "金", "土"]
               today = Date.today.strftime("%Y-%m-%d")
-              chores = Chore.where(start_time: today, user_id: @current_user.id)
-              # choresChore.where("(start_time = ?) OR (user_id = ?)", today,  @current_user.id)
-              render json: { status: 'Success', data: chores }
+
+              chores_1 = Chore.where(start_time: today, user_id: @current_user.id) #今日のみ
+              chores_2 = Chore.where(assignment_date: days[Date.today.wday], user_id: @current_user.id) #今日の曜日
+
+              render json: { status: 'Success', data1: chores_1, data2: chores_2 }
             end
 
             def week
               chores = Chore.where(user_id: @current_user.id)
-              this_week = Date.today.all_week # all_weekをDate.todayに適用すると、今週の年月日データを取得できる。
-              chores.map do |chore| 
-                    if (this_week.include?(chore[:start_time]))
-                    end
-                end
-            render json: { status: 'Success', data: chores }
+              chores_1 = {}
+              chores = chores.each do |chore| 
+                  if !chore[:start_time].nil?
+                      chores_1 = chore
+                  end
+              end
+              chores_2 = Chore.where.not(assignment_date: nil).where(user_id: 1)
+
+              render json: { status: 'Success', data1: chores_1, data2: chores_2 }
+
             end
 
-            def remove_todo
+
+            def remove_today
                 @chore.start_time = nil
+                @chore.save
+                render json: { status: 'Success', data: @chore }
+            end
+
+            def remove_week
+                @chore.assignment_date = nil
                 @chore.save
                 render json: { status: 'Success', data: @chore }
             end
@@ -70,26 +131,23 @@ module Api
             end
 
             def recommend_results
-                selected_list = JSON.parse(request.body.read) #フロントから受け取ったパラメータをjson化 
-                wday_list = selected_list[0]
-                chore_list = selected_list[1].values
-
-                 today = Date.today #今日の日付
-                 array_list = Array.new(55){|i|today + i} #今日から48日分の日付を取得
-
-                 start_time = array_list.map{|array|
-                    wday_list.map { |key, value|
-                        if array.wday === value
-                            puts array
-                            start_time = array
-                         end
-                    }.compact
-                }.flatten
+                selected_list = JSON.parse(request.body.read) #フロントから受け取ったパラメータをjson化
+                survey = Survey.where(user_id: @current_user.id).last
+                wday_list = survey.assignment_date.split(",")
+                chore_list = selected_list[0].values
 
                 i = 0
+                j = 0
+                while i<8
+                    wday_list << wday_list[j]
+                 i += 1
+                 j += 1
+                end
+
+                k = 0
                 chore_list.each{|chore|
-                    i += 1
-                    Chore.create(chore_name: chore, start_time: start_time[i-1], user_id: @current_user.id)
+                    k += 1
+                    Chore.create(chore_name: chore, assignment_date: wday_list[k-1], user_id: 1)
                 }
                 render json: { status: 'Success',  data: chore_list}
 
