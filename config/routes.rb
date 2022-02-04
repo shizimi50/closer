@@ -25,6 +25,12 @@ Rails.application.routes.draw do
           get :today 
           get :week
         end
+
+        member do
+          put :remove_todo
+          put :skip_todo
+        end
+
         resources :chore_ways
         resources :chore_tools
       end
