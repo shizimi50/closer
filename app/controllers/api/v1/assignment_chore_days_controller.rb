@@ -6,7 +6,7 @@ module Api
             before_action :set_assignment_chore_days, only:[:show, :update, :destroy]
 
             def index
-                result = AssignmentChoreDay.where(user_id: @current_user.id)
+                result = AssignmentChoreDay.where(user_id: @current_user.id).last
                 render json: { status: 'Success', data: result } 
             end
             

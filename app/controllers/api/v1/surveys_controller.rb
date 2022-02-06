@@ -10,7 +10,7 @@ module Api
             end					
 
             def create
-                survey = current_user.surveys.build(survey_params)
+                survey = current_user.survey.build(survey_params)
 
                 if survey.save
                     render json: { status: 'Success',  data: survey }

@@ -11,7 +11,7 @@ module Api
             def about
                 user = User.find_by(id: current_user.id)
                 count = Chore.where(user_id: user.id).count
-                assignment_chore_day = AssignmentChoreDay.where(user_id: user.id)
+                assignment_chore_day = AssignmentChoreDay.where(user_id: user.id).last
                 # render json: user, each_serializer: UserSerializer, include: [ :assignment_chore_days ]
                 # render json: user, each_serializer: UserSerializer
 
