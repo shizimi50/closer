@@ -4,7 +4,7 @@ class Survey < ApplicationRecord
     # ＝＝＝＝＝＝＝＝＝＝＝＝＝
 
     # ＝＝＝＝関連付け＝＝＝＝＝
-    belongs_to :user, dependent: :destroy, optional: true #nullの許容
+    belongs_to :user, optional: true #nullの許容
     # ＝＝＝＝＝＝＝＝＝＝＝＝＝
 
 

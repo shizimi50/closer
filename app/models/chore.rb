@@ -4,7 +4,7 @@ class Chore < ApplicationRecord
     # ＝＝＝＝＝＝＝＝＝＝＝＝＝
 
     # ＝＝＝＝関連付け＝＝＝＝＝
-    belongs_to :user
+    belongs_to :user, optional: true #nullの許容
     has_many :chore_ways, dependent: :destroy #chore_waysとの関連づけ
     has_many :chore_tools, dependent: :destroy #chore_toolsとの関連づけ
     # ＝＝＝＝＝＝＝＝＝＝＝＝＝
