@@ -145,7 +145,7 @@ module Api
                 k = 0
                 chore_list = chore_list.map{|chore|
                     k += 1
-                    Chore.create(chore_name: chore, assignment_date: wday_list[k-1], user_id: 1)
+                    Chore.create(chore_name: chore, assignment_date: wday_list[k-1], user_id: @current_user.id)
                 }
                 render json: { status: 'Success',  data: chore_list}
 
