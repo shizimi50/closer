@@ -1,6 +1,6 @@
 class Survey < ApplicationRecord
     # =====Validation======
-    validates :sex, :birth, :working_hours, :holiday, :partner_jobsituation, :children, presence: true #空の値に対してバリデーション設定
+    validates :sex, :birth, :working_hours, :holiday, :partner_jobsituation_id, :children, presence: true #空の値に対してバリデーション設定
     # ＝＝＝＝＝＝＝＝＝＝＝＝＝
 
     # ＝＝＝＝関連付け＝＝＝＝＝
