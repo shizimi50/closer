@@ -40,7 +40,7 @@ module Api
             private
             
             def survey_params
-                params.permit(:sex, :birth, :working_hours, :holiday, :partner_jobsituation, :children, :youngest_child_age, :kindergarten, :assignment_date, :week_category, :user_id)
+                params.permit(:sex, :birth, :working_hours, :holiday, :partner_jobsituation_id, :children, :youngest_child_age, :has_child_kindergarten, :assignment_date, :week_category, :user_id)
             end
 
         end
