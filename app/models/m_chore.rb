@@ -1,0 +1,2 @@
+class MChore < ApplicationRecord
+end
