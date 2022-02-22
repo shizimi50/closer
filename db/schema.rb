@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_18_142227) do
+ActiveRecord::Schema.define(version: 2022_02_22_141534) do
 
   create_table "assignment_chore_days", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "working_hours", null: false
@@ -49,6 +49,11 @@ ActiveRecord::Schema.define(version: 2022_02_18_142227) do
     t.string "start_time"
     t.string "assignment_date"
     t.date "skip_date"
+  end
+
+  create_table "m_chores", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "surveys", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
