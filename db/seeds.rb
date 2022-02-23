@@ -5,31 +5,40 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-require "csv"
-require "date"
+# require "csv"
+# require "date"
 
 #  ----------------------------------------------------------------------------------------------------------------------------
 #  おすすめ家事日時
 #  ----------------------------------------------------------------------------------------------------------------------------
-# AssignmentChoreDay.create(working_hours: '1~1.5hr', chore_days: '平日', user_id: 0)
-# AssignmentChoreDay.create(working_hours: '30mins~1hr', chore_days: '平日', user_id: 0)
-# AssignmentChoreDay.create(working_hours: '15mins~30mins', chore_days: '平日', user_id: 0 )
-# AssignmentChoreDay.create(working_hours: '1~1.5hr', chore_days: '休日', user_id: 0)
-# AssignmentChoreDay.create(working_hours: '30mins~1hr', chore_days: '休日', user_id: 0)
-# AssignmentChoreDay.create(working_hours: '15mins~30mins', chore_days: '休日', user_id: 0)
+AssignmentChoreDay.create(working_hours: '1~1.5hr', chore_days: '平日')
+AssignmentChoreDay.create(working_hours: '30mins~1hr', chore_days: '平日')
+AssignmentChoreDay.create(working_hours: '15mins~30mins', chore_days: '平日')
+AssignmentChoreDay.create(working_hours: '1~1.5hr', chore_days: '休日')
+AssignmentChoreDay.create(working_hours: '30mins~1hr', chore_days: '休日')
+AssignmentChoreDay.create(working_hours: '15mins~30mins', chore_days: '休日')
 
 #  ----------------------------------------------------------------------------------------------------------------------------
 #  家事データ作成
 #  ----------------------------------------------------------------------------------------------------------------------------
 
-Chore.create(chore_name: '洗濯', user_id: 0 )
-Chore.create(chore_name: 'ゴミ捨て', user_id: 0)
-Chore.create(chore_name: '風呂掃除', user_id: 0)
-Chore.create(chore_name: 'トイレ掃除', user_id: 0)
-Chore.create(chore_name: '食後の片付け', user_id: 0)
-Chore.create(chore_name: '子の入浴補助', user_id: 0)
-Chore.create(chore_name: '子の食事補助', user_id: 0)
-Chore.create(chore_name: '子の登園準備', user_id: 0)
+MChore.create(chore_name: '洗濯')
+MChore.create(chore_name: 'ゴミ捨て')
+MChore.create(chore_name: '風呂掃除')
+MChore.create(chore_name: 'トイレ掃除')
+MChore.create(chore_name: '食後の片付け')
+MChore.create(chore_name: '子の入浴補助')
+MChore.create(chore_name: '子の寝かしつけ')
+MChore.create(chore_name: '子の食事補助')
+MChore.create(chore_name: '子の登園準備')
+
+#  ----------------------------------------------------------------------------------------------------------------------------
+#  パートナーの就業状況作成
+#  ----------------------------------------------------------------------------------------------------------------------------
+
+Jobsituation.create(jobsituation_name: 'フルタイム勤務(週5日、雇用形態関わらず)時短勤務(週5日、雇用形態関わらず)')
+Jobsituation.create(jobsituation_name: 'パート(週4以下)')
+Jobsituation.create(jobsituation_name: '専業主婦(夫)')
 
 #  ----------------------------------------------------------------------------------------------------------------------------
 #  家事方法作成
