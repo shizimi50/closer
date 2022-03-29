@@ -1,16 +1,13 @@
 class User < ApplicationRecord
     # # =====Validation======
-    # validates :email, presence: true
+    validates :email, presence: true
     # # ＝＝＝＝＝＝＝＝＝＝＝＝＝
 
     # # ＝＝＝＝関連付け＝＝＝＝＝
-    # has_many :chores, dependent: :destroy #choresとの関連づけ
+    has_many :chores
+    has_many :surveys
+    has_many :assignment_chore_days
     # has_many :chore_ways, through: :chores #userモデルからchore_waysへ直接関連付けを定義
-    has_one :assignment_chore_day
-    has_many :survey
     # # ＝＝＝＝＝＝＝＝＝＝＝＝＝
 
-    # # ＝＝フレームワーク関連＝＝
-    # acts_as_paranoid #論理削除適用
-    # # ＝＝＝＝＝＝＝＝＝＝＝＝＝
 end

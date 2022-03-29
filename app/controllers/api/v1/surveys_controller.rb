@@ -6,16 +6,16 @@ module Api
 
             def index
                 survey = Survey.all
-                render json: { status: 'Success', data: survey }
+                render json: { data: survey }
             end					
 
             def create
-                survey = current_user.survey.build(survey_params)
+                survey = current_user.surveys.build(survey_params)
 
                 if survey.save
-                    render json: { status: 'Success',  data: survey }
+                    render json: { data: survey }
                 else
-                    render json: { status: 'Error',  message: survey.errors.full_messages }
+                    render json: { message: survey.errors.full_messages }
                 end
             end
 
@@ -31,18 +31,17 @@ module Api
                     else
                         survey.update(week_category: 3) #休日
                     end
-                    render json: survey
+                    render json: { data: survey }
                 else
-                    render json: survey.errors
+                    render json: { message: survey.errors.full_messages }
                 end
             end
 
             private
             
             def survey_params
-                params.permit(:sex, :birth, :working_hours, :holiday, :partner_jobsituation, :children, :youngest_child_age, :kindergarten, :assignment_date, :week_category, :user_id)
+                params.permit(:sex, :birth, :working_hours, :holiday, :jobsituation_id, :children, :youngest_child_age, :has_child_kindergarten, :assignment_date, :week_category, :user_id)
             end
-
         end
     end
 end

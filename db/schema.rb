@@ -10,12 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_04_014117) do
+ActiveRecord::Schema.define(version: 2022_02_23_091128) do
 
   create_table "assignment_chore_days", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "working_hours", null: false
     t.string "chore_days", null: false
-    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -51,15 +50,26 @@ ActiveRecord::Schema.define(version: 2022_02_04_014117) do
     t.date "skip_date"
   end
 
+  create_table "jobsituations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "jobsituation_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "m_chores", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "surveys", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "sex"
-    t.string "birth"
-    t.string "working_hours"
+    t.integer "birth"
+    t.integer "working_hours"
     t.string "holiday"
-    t.string "partner_jobsituation"
-    t.string "children"
-    t.string "youngest_child_age"
-    t.string "kindergarten"
+    t.integer "jobsituation_id"
+    t.integer "children"
+    t.integer "youngest_child_age"
+    t.boolean "has_child_kindergarten"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
