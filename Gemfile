@@ -19,6 +19,8 @@ gem 'redis-rails'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
+gem "activestorage"
+
 gem 'firebase-auth-rails' # 追記
 gem 'firebase_id_token', '~> 2.4.0' # 追記
 gem 'google-apis-identitytoolkit_v3' #追記
